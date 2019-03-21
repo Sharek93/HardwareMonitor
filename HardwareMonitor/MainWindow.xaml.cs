@@ -1,4 +1,7 @@
-﻿using System;
+﻿using HardwareMonitor.Components;
+using HardwareMonitor.Components.Monitors;
+using HardwareMonitor.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +26,39 @@ namespace HardwareMonitor
         public MainWindow()
         {
             InitializeComponent();
+            ComputerManager.Initialize();
+            CpuMonitor.Initialize();
+            WindowPosition.Initialize(this);
+        }
+
+        private void StartButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataManager.IsRunning)
+            {
+                DataManager.Stop();
+                return;
+            }
+            DataManager.Start();
+        }
+
+        private void CloseButton_Click_1(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void FollowButton_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            WindowPosition.Follow();
+        }
+
+        private void FollowButton_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            WindowPosition.StartFollow();
+        }
+
+        private void FollowButton_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            WindowPosition.StopFollow();
         }
     }
 }
