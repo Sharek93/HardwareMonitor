@@ -5,11 +5,11 @@ using OpenHardwareMonitor.Hardware;
 
 namespace HardwareMonitor.Components.Monitors
 {
-    static class CpuMonitor
+    public class CpuMonitor
     {
-        public static CpuData Data { get; set; }
+        public CpuData Data { get; set; }
 
-        public static void Initialize()
+        public CpuMonitor()
         {
             Data = new CpuData
             {
@@ -18,7 +18,7 @@ namespace HardwareMonitor.Components.Monitors
             };
         }
 
-        public static void UpdateInfo()
+        public void UpdateInfo()
         {
             var hardware = ComputerManager.Computer.Hardware.FirstOrDefault(e => e.HardwareType == HardwareType.CPU);
 

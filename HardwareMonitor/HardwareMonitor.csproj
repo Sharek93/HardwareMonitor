@@ -71,6 +71,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Components\DataManager.cs" />
+    <Compile Include="Components\InterfaceManager.cs" />
     <Compile Include="Components\Monitors\Computer.cs" />
     <Compile Include="Components\Monitors\CpuMonitor.cs" />
     <Compile Include="Helpers\MousePosition.cs" />

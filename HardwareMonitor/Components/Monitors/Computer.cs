@@ -8,7 +8,7 @@ namespace HardwareMonitor.Components.Monitors
 
         public static void Initialize()
         {
-            Computer = new Computer() { CPUEnabled = true, GPUEnabled = true, RAMEnabled = true };
+            Computer = new Computer() { CPUEnabled = true, GPUEnabled = true, RAMEnabled = true, HDDEnabled = true};
             Computer.Open();
         }
     }

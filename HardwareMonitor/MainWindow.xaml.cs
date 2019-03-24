@@ -23,22 +23,42 @@ namespace HardwareMonitor
     /// </summary>
     public partial class MainWindow : Window
     {
+        private DataManager _dataManager;
+        private InterfaceManager _interfaceManager;
+
         public MainWindow()
         {
             InitializeComponent();
-            ComputerManager.Initialize();
-            CpuMonitor.Initialize();
+            var config = new DataManagerConfig
+            {
+                MonitorCpu = true,
+                MonitorGpu = true,
+                MonitorMemory = true,
+                MonitorDisks = true
+            };
+            _dataManager = new DataManager(config);
             WindowPosition.Initialize(this);
+            _interfaceManager = new InterfaceManager(this, _dataManager);
         }
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            if (DataManager.IsRunning)
+            if (_dataManager.IsRunning)
             {
-                DataManager.Stop();
-                return;
+                _dataManager.Stop();
             }
-            DataManager.Start();
+            else
+            {
+                _dataManager.Start();
+            }
+            if (_interfaceManager.IsRunning)
+            {
+                _interfaceManager.Stop();
+            }
+            else
+            {
+                _interfaceManager.Start();
+            }
         }
 
         private void CloseButton_Click_1(object sender, RoutedEventArgs e)
