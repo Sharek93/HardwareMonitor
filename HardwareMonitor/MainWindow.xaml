@@ -21,8 +21,8 @@
         <Button x:Name="CloseButton" Content="X" HorizontalAlignment="Right" Margin="0,10,5,0" VerticalAlignment="Top" Width="20" Height="20" FontFamily="Calibri" FontSize="16" FontWeight="Bold" BorderBrush="Black" Background="#FF474747" Click="CloseButton_Click_1" Grid.Column="2" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
         <Button x:Name="FollowButton" Content="O" HorizontalAlignment="Right" Margin="0,40,5,0" VerticalAlignment="Top" Width="20" Height="20" FontFamily="Calibri" FontSize="16" FontWeight="Bold" BorderBrush="Black" Background="#FF474747" PreviewMouseLeftButtonDown="FollowButton_PreviewMouseLeftButtonDown" PreviewMouseMove="FollowButton_PreviewMouseMove" PreviewMouseLeftButtonUp="FollowButton_PreviewMouseLeftButtonUp" Grid.Column="2" Padding="0" UseLayoutRounding="False" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
 
-        <Label Content="CPU:" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" FontFamily="Calibri" FontWeight="Bold" Foreground="White"/>
-        <Label Name="CpuName" Content="Name" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Top" FontFamily="Calibri" Foreground="White" FontStretch="Condensed" FontWeight="Thin"/>
+        <Label Content="CPU:" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top" FontFamily="Calibri" FontWeight="Bold" Foreground="White" Width="25" Padding="0" VerticalContentAlignment="Center" Height="25"/>
+        <Label Name="CpuName" Content="Name" Margin="30,0,0,0" VerticalAlignment="Top" FontFamily="Calibri" Foreground="White" FontStretch="Condensed" FontWeight="Thin" Padding="0" VerticalContentAlignment="Center" Height="25"/>
         <Grid x:Name="CpuDataGrid" Margin="0,25,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -46,7 +46,7 @@
             <Label Content="Core #1:" Margin="0" Padding="0" VerticalContentAlignment="Center" FontFamily="Calibri" Foreground="White" HorizontalContentAlignment="Center" BorderBrush="White" BorderThickness="0,0,0,1" FontSize="11" Grid.Row="3"/>
             <Label Content="Core #1:" Margin="0" Padding="0" VerticalContentAlignment="Center" FontFamily="Calibri" Foreground="White" HorizontalContentAlignment="Center" BorderBrush="White" BorderThickness="0,0,0,1" FontSize="11" Grid.Row="4"/>
             <Label Content="Total:" Margin="0" Padding="0" VerticalContentAlignment="Center" FontFamily="Calibri" Foreground="White" HorizontalContentAlignment="Center" BorderBrush="White" BorderThickness="0,0,0,1" FontSize="11" Grid.Row="5"/>
-            
+
             <Label x:Name="Core1Usage" Content="1%" Margin="0" Padding="0" VerticalContentAlignment="Center" FontFamily="Calibri" Foreground="Lime" HorizontalContentAlignment="Center" BorderBrush="White" BorderThickness="0" FontSize="11" Grid.Row="1" Grid.Column="1"/>
             <Label x:Name="Core2Usage" Content="2%" Margin="0" Padding="0" VerticalContentAlignment="Center" FontFamily="Calibri" Foreground="Lime" HorizontalContentAlignment="Center" BorderBrush="White" BorderThickness="0" FontSize="11" Grid.Row="2" Grid.Column="1"/>
             <Label x:Name="Core3Usage" Content="3%" Margin="0" Padding="0" VerticalContentAlignment="Center" FontFamily="Calibri" Foreground="Lime" HorizontalContentAlignment="Center" BorderBrush="White" BorderThickness="0" FontSize="11" Grid.Row="3" Grid.Column="1"/>
@@ -58,6 +58,31 @@
             <Label x:Name="Core3Temp" Content="3C" Margin="0" Padding="0" VerticalContentAlignment="Center" FontFamily="Calibri" Foreground="Lime" HorizontalContentAlignment="Center" BorderBrush="White" BorderThickness="0" FontSize="11" Grid.Row="3" Grid.Column="2"/>
             <Label x:Name="Core4Temp" Content="4C" Margin="0" Padding="0" VerticalContentAlignment="Center" FontFamily="Calibri" Foreground="Lime" HorizontalContentAlignment="Center" BorderBrush="White" BorderThickness="0" FontSize="11" Grid.Row="4" Grid.Column="2"/>
             <Label x:Name="TotalTemp" Content="TC" Margin="0" Padding="0" VerticalContentAlignment="Center" FontFamily="Calibri" Foreground="Lime" HorizontalContentAlignment="Center" BorderBrush="White" BorderThickness="0" FontSize="11" Grid.Row="5" Grid.Column="2"/>
+        </Grid>
+
+        <Label Content="RAM:" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top" FontFamily="Calibri" FontWeight="Bold" Foreground="White" Width="30" Padding="0" VerticalContentAlignment="Center" Height="25" Grid.Column="1"/>
+        <Label Name="MemoryName" Content="Name" Margin="35,0,0,0" VerticalAlignment="Top" FontFamily="Calibri" Foreground="White" FontStretch="Condensed" FontWeight="Thin" Padding="0" VerticalContentAlignment="Center" Height="25" Grid.Column="1"/>
+        <Grid x:Name="MemoryDataGrid" Grid.Column="1" Margin="0,25,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Memory" Margin="0" Padding="0" VerticalContentAlignment="Center" FontFamily="Calibri" Foreground="White" HorizontalContentAlignment="Center" BorderBrush="White" BorderThickness="0,0,0,1" FontSize="11"/>
+            <Label Content="Used:" Margin="0" Padding="0" VerticalContentAlignment="Center" FontFamily="Calibri" Foreground="White" HorizontalContentAlignment="Center" BorderBrush="White" BorderThickness="0,0,0,1" FontSize="11" Grid.Row="2"/>
+            <Label Content="Available:" Margin="0" Padding="0" VerticalContentAlignment="Center" FontFamily="Calibri" Foreground="White" HorizontalContentAlignment="Center" BorderBrush="White" BorderThickness="0,0,0,1" FontSize="11" Grid.Row="3"/>
+            <Label Content="Total:" Margin="0" Padding="0" VerticalContentAlignment="Center" FontFamily="Calibri" Foreground="White" HorizontalContentAlignment="Center" BorderBrush="White" BorderThickness="0,0,0,1" FontSize="11" Grid.Row="4"/>
+
+            <Label x:Name="MemoryUsed" Content="1" Margin="0" Padding="0" VerticalContentAlignment="Center" FontFamily="Calibri" Foreground="Lime" HorizontalContentAlignment="Center" BorderBrush="White" BorderThickness="0" FontSize="11" Grid.Row="2" Grid.Column="1"/>
+            <Label x:Name="MemoryFree" Content="2" Margin="0" Padding="0" VerticalContentAlignment="Center" FontFamily="Calibri" Foreground="Lime" HorizontalContentAlignment="Center" BorderBrush="White" BorderThickness="0" FontSize="11" Grid.Row="3" Grid.Column="1"/>
+            <Label x:Name="MemoryTotal" Content="3" Margin="0" Padding="0" VerticalContentAlignment="Center" FontFamily="Calibri" Foreground="Lime" HorizontalContentAlignment="Center" BorderBrush="White" BorderThickness="0" FontSize="11" Grid.Row="4" Grid.Column="1"/>
         </Grid>
     </Grid>
 </Window>

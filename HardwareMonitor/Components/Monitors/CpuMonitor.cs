@@ -53,7 +53,7 @@ namespace HardwareMonitor.Components.Monitors
                         Data.Load.Total = sensor.Value ?? -1;
                     }
 
-                    Debug.WriteLine($"{hardware.Name} {sensor.Name} Clock: {sensor.Value}");
+                    //Debug.WriteLine($"{hardware.Name} {sensor.Name} Clock: {sensor.Value}");
                 }
                 if (sensor.SensorType == SensorType.Temperature)
                 {
@@ -78,7 +78,7 @@ namespace HardwareMonitor.Components.Monitors
                         Data.Temperature.Total = (int)(sensor.Value ?? -1);
                     }
 
-                    Debug.WriteLine($"{hardware.Name} {sensor.Name} Temperature: {sensor.Value}");
+                    //Debug.WriteLine($"{hardware.Name} {sensor.Name} Temperature: {sensor.Value}");
                 }
             }
 

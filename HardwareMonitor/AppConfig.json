@@ -4,5 +4,9 @@
 		"CpuTempRedThreshold": 80,
 		"CpuUsageYellowThreshold": 50,
 		"CpuUsageRedThreshold": 90
+	},
+	"Memory": {
+		"MemoryUsageYellowThreshold": 75,
+		"MemoryUsageRedThreshold": 90
 	}
 }

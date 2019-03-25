@@ -1,4 +1,5 @@
-﻿using OpenHardwareMonitor.Hardware;
+﻿using HardwareMonitor.Models;
+using OpenHardwareMonitor.Hardware;
 
 namespace HardwareMonitor.Components.Monitors
 {
@@ -6,9 +7,15 @@ namespace HardwareMonitor.Components.Monitors
     {
         public static Computer Computer { get; set; }
 
-        public static void Initialize()
+        public static void Initialize(DataManagerConfig dataManagerConfig)
         {
-            Computer = new Computer() { CPUEnabled = true, GPUEnabled = true, RAMEnabled = true, HDDEnabled = true};
+            Computer = new Computer()
+            {
+                CPUEnabled = dataManagerConfig.MonitorCpu,
+                GPUEnabled = dataManagerConfig.MonitorGpu,
+                RAMEnabled = dataManagerConfig.MonitorMemory,
+                HDDEnabled = dataManagerConfig.MonitorDisks
+            };
             Computer.Open();
         }
     }

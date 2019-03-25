@@ -39,10 +39,11 @@ namespace HardwareMonitor.Components
         private void Run()
         {
             Task.Run(() => {
-                while(IsRunning)
+                while (IsRunning)
                 {
                     UpdateCpuInterface();
-                    Thread.Sleep(1000);
+                    UpdateMemoryInterface();
+                    Thread.Sleep(1000);             
                 }
             });
         }
@@ -50,9 +51,11 @@ namespace HardwareMonitor.Components
         private void UpdateCpuInterface()
         {
             var data = _dataManager.CpuData;
+
             try
             {
-                _window.Dispatcher.Invoke(new Action(() => {
+                _window.Dispatcher.Invoke(new Action(() =>
+                {
                     try
                     {
                         _window.CpuName.Content = data.Name;
@@ -77,7 +80,36 @@ namespace HardwareMonitor.Components
             }
             catch (Exception e)
             {
-                Debug.WriteLine("Error occured while invoking. " + e.Message);
+                Debug.WriteLine("Error occured while invoking CPU interface. " + e.Message);
+            }
+        }
+
+        private void UpdateMemoryInterface()
+        {
+            var data = _dataManager.MemoryData;
+
+            try
+            {
+                _window.Dispatcher.Invoke(new Action(() =>
+                {
+                    try
+                    {
+                        _window.MemoryName.Content = data.Name;
+
+                        ChangeColorAndUpdateText(_window.MemoryUsed, data.MemoryUsePercent, DataType.Memory);
+                        _window.MemoryUsed.Content = $"{data.MemoryUsed:0.00}GB ({data.MemoryUsePercent:0}%)";
+                        _window.MemoryFree.Content = $"{data.MemoryAvailable:0.00}GB";
+                        _window.MemoryTotal.Content = $"{data.MemoryTotal:0.00}GB";
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine("Error occured while updating MemoryData interface: " + e.Message);
+                    }
+                }));
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Error occured while invoking memory interface. " + e.Message);
             }
 
         }
@@ -115,6 +147,20 @@ namespace HardwareMonitor.Components
                         control.Foreground = Brushes.Red;
                     }
                     control.Content = value.ToString("0.00");
+                    break;
+                case DataType.Memory:
+                    if (value < Config.AppConfig.Memory.MemoryUsageYellowThreshold)
+                    {
+                        control.Foreground = Brushes.Lime;
+                    }
+                    else if (value < Config.AppConfig.Memory.MemoryUsageRedThreshold)
+                    {
+                        control.Foreground = Brushes.Yellow;
+                    }
+                    else
+                    {
+                        control.Foreground = Brushes.Red;
+                    }
                     break;
                 default:
                     break;

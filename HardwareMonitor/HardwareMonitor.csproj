@@ -77,6 +77,7 @@
     <Compile Include="Components\InterfaceManager.cs" />
     <Compile Include="Components\Monitors\Computer.cs" />
     <Compile Include="Components\Monitors\CpuMonitor.cs" />
+    <Compile Include="Components\Monitors\MemoryMonitor.cs" />
     <Compile Include="Enums\DataType.cs" />
     <Compile Include="Helpers\Config.cs" />
     <Compile Include="Helpers\MousePosition.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Models\AppConfig.cs" />
     <Compile Include="Models\CpuData.cs" />
     <Compile Include="Models\DataManagerConfig.cs" />
+    <Compile Include="Models\MemoryData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
