@@ -1,4 +1,4 @@
-﻿namespace HardwareMonitor.Models
+﻿namespace HardwareMonitor.Models.Monitors
 {
     public class MemoryData
     {

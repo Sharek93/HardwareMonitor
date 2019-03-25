@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Linq;
-using HardwareMonitor.Models;
+using HardwareMonitor.Models.Monitors;
 using OpenHardwareMonitor.Hardware;
 
 namespace HardwareMonitor.Components.Monitors

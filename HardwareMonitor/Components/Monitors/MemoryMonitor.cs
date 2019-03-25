@@ -1,4 +1,4 @@
-﻿using HardwareMonitor.Models;
+﻿using HardwareMonitor.Models.Monitors;
 using OpenHardwareMonitor.Hardware;
 using System.Diagnostics;
 using System.Linq;

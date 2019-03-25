@@ -4,6 +4,7 @@
     {
         CpuTemp,
         CpuUsage,
-        Memory
+        Memory,
+        GpuTemp
     }
 }

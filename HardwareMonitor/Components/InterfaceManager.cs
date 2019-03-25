@@ -43,6 +43,7 @@ namespace HardwareMonitor.Components
                 {
                     UpdateCpuInterface();
                     UpdateMemoryInterface();
+                    UpdateGpuInterFace();
                     Thread.Sleep(1000);             
                 }
             });
@@ -111,7 +112,36 @@ namespace HardwareMonitor.Components
             {
                 Debug.WriteLine("Error occured while invoking memory interface. " + e.Message);
             }
+        }
 
+        private void UpdateGpuInterFace()
+        {
+            var data = _dataManager.GpuData;
+
+            try
+            {
+                _window.Dispatcher.Invoke(new Action(() =>
+                {
+                    try
+                    {
+                        _window.GpuName.Content = data.Name;
+                        ChangeColorAndUpdateText(_window.GpuTemp, data.Temperature, DataType.GpuTemp);
+                        _window.GpuFanSpeed.Content = $"{data.FanSpeed}RPM";
+                        _window.GpuMemory.Content = $"{data.MemoryUsed/1024:0.00}GB/{data.MemoryTotal/1024:0.00}GB ({data.MemoryLoad:0}%)";
+                        _window.GpuCoreClock.Content = $"{data.CoreLoad}% ({data.CoreClock}MHz)";
+                        _window.GpuMemoryClock.Content = $"{data.MemoryControlLoad}% ({data.MemoryClock}MHz)";
+                        _window.GpuShaderClock.Content = $"{data.VideoEngineLoad}% ({data.ShaderClock}MHz)";
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine("Error occured while updating MemoryData interface: " + e.Message);
+                    }
+                }));
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Error occured while invoking memory interface. " + e.Message);
+            }
         }
 
         private void ChangeColorAndUpdateText(Label control, float value, DataType type)
@@ -119,11 +149,11 @@ namespace HardwareMonitor.Components
             switch (type)
             {
                 case DataType.CpuTemp:
-                    if (value < Config.AppConfig.Cpu.CpuTempYellowThreshold)
+                    if (value < Config.AppConfig.Cpu.TempYellowThreshold)
                     {
                         control.Foreground = Brushes.Lime;
                     }
-                    else if (value < Config.AppConfig.Cpu.CpuTempRedThreshold)
+                    else if (value < Config.AppConfig.Cpu.TempRedThreshold)
                     {
                         control.Foreground = Brushes.Yellow;
                     }
@@ -134,11 +164,11 @@ namespace HardwareMonitor.Components
                     control.Content = value.ToString();
                     break;
                 case DataType.CpuUsage:
-                    if (value < Config.AppConfig.Cpu.CpuUsageYellowThreshold)
+                    if (value < Config.AppConfig.Cpu.UsageYellowThreshold)
                     {
                         control.Foreground = Brushes.Lime;
                     }
-                    else if (value < Config.AppConfig.Cpu.CpuUsageRedThreshold)
+                    else if (value < Config.AppConfig.Cpu.UsageRedThreshold)
                     {
                         control.Foreground = Brushes.Yellow;
                     }
@@ -149,11 +179,11 @@ namespace HardwareMonitor.Components
                     control.Content = value.ToString("0.00");
                     break;
                 case DataType.Memory:
-                    if (value < Config.AppConfig.Memory.MemoryUsageYellowThreshold)
+                    if (value < Config.AppConfig.Memory.UsageYellowThreshold)
                     {
                         control.Foreground = Brushes.Lime;
                     }
-                    else if (value < Config.AppConfig.Memory.MemoryUsageRedThreshold)
+                    else if (value < Config.AppConfig.Memory.UsageRedThreshold)
                     {
                         control.Foreground = Brushes.Yellow;
                     }
@@ -161,6 +191,21 @@ namespace HardwareMonitor.Components
                     {
                         control.Foreground = Brushes.Red;
                     }
+                    break;
+                case DataType.GpuTemp:
+                    if (value < Config.AppConfig.Gpu.TempYellowThreshold)
+                    {
+                        control.Foreground = Brushes.Lime;
+                    }
+                    else if (value < Config.AppConfig.Gpu.TempRedThreshold)
+                    {
+                        control.Foreground = Brushes.Yellow;
+                    }
+                    else
+                    {
+                        control.Foreground = Brushes.Red;
+                    }
+                    control.Content = value.ToString() + "°C";
                     break;
                 default:
                     break;

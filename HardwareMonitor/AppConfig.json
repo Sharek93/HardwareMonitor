@@ -1,12 +1,16 @@
 {
 	"Cpu": {
-		"CpuTempYellowThreshold": 70,
-		"CpuTempRedThreshold": 80,
-		"CpuUsageYellowThreshold": 50,
-		"CpuUsageRedThreshold": 90
+		"TempYellowThreshold": 70,
+		"TempRedThreshold": 80,
+		"UsageYellowThreshold": 50,
+		"UsageRedThreshold": 90
 	},
 	"Memory": {
-		"MemoryUsageYellowThreshold": 75,
-		"MemoryUsageRedThreshold": 90
+		"UsageYellowThreshold": 75,
+		"UsageRedThreshold": 90
+	},
+	"Gpu": {
+		"TempYellowThreshold": 75,
+		"TempRedThreshold": 90
 	}
 }
