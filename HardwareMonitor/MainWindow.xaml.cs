@@ -1,6 +1,7 @@
 ﻿using HardwareMonitor.Components;
 using HardwareMonitor.Components.Monitors;
 using HardwareMonitor.Helpers;
+using HardwareMonitor.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,7 @@ namespace HardwareMonitor
         public MainWindow()
         {
             InitializeComponent();
+            Config.LoadConfig();
             var config = new DataManagerConfig
             {
                 MonitorCpu = true,

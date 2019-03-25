@@ -22,6 +22,7 @@
         <Button x:Name="FollowButton" Content="O" HorizontalAlignment="Right" Margin="0,40,5,0" VerticalAlignment="Top" Width="20" Height="20" FontFamily="Calibri" FontSize="16" FontWeight="Bold" BorderBrush="Black" Background="#FF474747" PreviewMouseLeftButtonDown="FollowButton_PreviewMouseLeftButtonDown" PreviewMouseMove="FollowButton_PreviewMouseMove" PreviewMouseLeftButtonUp="FollowButton_PreviewMouseLeftButtonUp" Grid.Column="2" Padding="0" UseLayoutRounding="False" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
 
         <Label Content="CPU:" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" FontFamily="Calibri" FontWeight="Bold" Foreground="White"/>
+        <Label Name="CpuName" Content="Name" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Top" FontFamily="Calibri" Foreground="White" FontStretch="Condensed" FontWeight="Thin"/>
         <Grid x:Name="CpuDataGrid" Margin="0,25,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition/>

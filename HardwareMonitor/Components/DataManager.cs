@@ -1,5 +1,6 @@
 ﻿using HardwareMonitor.Components.Monitors;
 using HardwareMonitor.Models;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,11 +11,29 @@ namespace HardwareMonitor.Components
         public bool IsRunning { get; private set; } = false;
         public CpuData CpuData => _cpuMonitor.Data;
         private readonly CpuMonitor _cpuMonitor;
+        private readonly DataManagerConfig _config;
 
         public DataManager(DataManagerConfig config)
         {
+            Debug.WriteLine(config.ToString());
+            _config = config;
             ComputerManager.Initialize();
-            _cpuMonitor = new CpuMonitor();
+            if (config.MonitorCpu)
+            {
+                _cpuMonitor = new CpuMonitor();
+            }
+            if (config.MonitorGpu)
+            {
+
+            }
+            if (config.MonitorMemory)
+            {
+
+            }
+            if (config.MonitorDisks)
+            {
+
+            }
         }
 
 
@@ -34,19 +53,13 @@ namespace HardwareMonitor.Components
             Task.Run(() => {
                 do
                 {
-                    _cpuMonitor.UpdateInfo();
+                    if (_config.MonitorCpu)
+                    {
+                        _cpuMonitor.UpdateInfo();
+                    }
                     Thread.Sleep(1000);
                 } while (IsRunning);
             });
         }
     }
-
-    public class DataManagerConfig
-    {
-        public bool MonitorCpu { get; set; }
-        public bool MonitorGpu { get; set; }
-        public bool MonitorMemory { get; set; }
-        public bool MonitorDisks { get; set; }
-    }
-
 }
