@@ -1,6 +1,7 @@
 ﻿using HardwareMonitor.Components.Monitors;
 using HardwareMonitor.Models;
 using HardwareMonitor.Models.Monitors;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace HardwareMonitor.Components
         public CpuData CpuData => _cpuMonitor.Data ?? null;
         public MemoryData MemoryData => _memoryMonitor.Data ?? null;
         public GpuData GpuData => _gpuMonitor.Data ?? null;
+        public List<DiskData> DiskData => _diskMonitor.Data ?? null;
         private readonly CpuMonitor _cpuMonitor;
         private readonly MemoryMonitor _memoryMonitor;
         private readonly GpuMonitor _gpuMonitor;

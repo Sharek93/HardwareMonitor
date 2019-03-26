@@ -5,6 +5,8 @@
         CpuTemp,
         CpuUsage,
         Memory,
-        GpuTemp
+        GpuTemp,
+        HddTemp,
+        HddUsage
     }
 }

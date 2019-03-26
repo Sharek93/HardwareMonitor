@@ -5,6 +5,7 @@
         public CpuDisplayConfig Cpu { get; set; }
         public MemoryDisplayConfig Memory { get; set; }
         public GpuDisplayConfig Gpu { get; set; }
+        public HddDisplayConfig Hdd { get; set; }
 
         public override string ToString()
         {
@@ -54,6 +55,23 @@
                 return $"GPU display config:\n" +
                     $"GpuTempYellowThreshold: {TempYellowThreshold}\n" +
                     $"GpuTempRedThreshold: {TempRedThreshold}";
+            }
+        }
+
+        public class HddDisplayConfig
+        {
+            public int TempYellowThreshold { get; set; }
+            public int TempRedThreshold { get; set; }
+            public int UsageYellowThreshold { get; set; }
+            public int UsageRedThreshold { get; set; }
+
+            public override string ToString()
+            {
+                return $"HDD display config:\n" +
+                    $"HddTempYellowThreshold: {TempYellowThreshold}\n" +
+                    $"HddTempRedThreshold: {TempRedThreshold}\n" +
+                    $"HddUsageYellowThreshold: {UsageYellowThreshold}\n" +
+                    $"HddUsageRedThreshold: {UsageRedThreshold}";
             }
         }
     }

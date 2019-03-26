@@ -56,6 +56,10 @@ namespace HardwareMonitor.Components
                     {
                         UpdateGpuInterFace(); 
                     }
+                    if (_config.MonitorDisks)
+                    {
+                        UpdateDiskInterface();
+                    }
                     Thread.Sleep(1000);             
                 }
             });
@@ -146,13 +150,47 @@ namespace HardwareMonitor.Components
                     }
                     catch (Exception e)
                     {
-                        Debug.WriteLine("Error occured while updating MemoryData interface: " + e.Message);
+                        Debug.WriteLine("Error occured while updating GpuData interface: " + e.Message);
                     }
                 }));
             }
             catch (Exception e)
             {
-                Debug.WriteLine("Error occured while invoking memory interface. " + e.Message);
+                Debug.WriteLine("Error occured while invoking GPU interface. " + e.Message);
+            }
+        }
+
+        private void UpdateDiskInterface()
+        {
+            var data = _dataManager.DiskData;
+
+            try
+            {
+                _window.Dispatcher.Invoke(new Action(() =>
+                {
+                    try
+                    {
+                        for (int i = 0; i < data.Count; i++)
+                        {
+                            var d = data[i];
+
+                            var diskNameLabel = (Label)_window.FindName($"Disk{i+1}Name");
+                            diskNameLabel.Content = d.Name ?? "No drive detected";
+                            var diskLoadLabel = (Label)_window.FindName($"Disk{i+1}Load");
+                            ChangeColorAndUpdateText(diskLoadLabel, d.Used, DataType.HddUsage);
+                            var diskTempLabel = (Label)_window.FindName($"Disk{i+1}Temp");
+                            ChangeColorAndUpdateText(diskTempLabel, d.Temperature, DataType.HddTemp);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine("Error occured while updating DiskData interface: " + e.Message);
+                    }
+                }));
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Error occured while invoking disk interface. " + e.Message);
             }
         }
 
@@ -188,7 +226,7 @@ namespace HardwareMonitor.Components
                     {
                         control.Foreground = Brushes.Red;
                     }
-                    control.Content = value != null? $"{value:0.00}": "-";
+                    control.Content = value != null ? $"{value:0.00}%" : "-";
                     break;
                 case DataType.Memory:
                     if (value < Config.AppConfig.Memory.UsageYellowThreshold || value == null)
@@ -217,7 +255,37 @@ namespace HardwareMonitor.Components
                     {
                         control.Foreground = Brushes.Red;
                     }
-                    control.Content = value !=null ? $"{value}°C" : "-";
+                    control.Content = value != null ? $"{value}°C" : "-";
+                    break;
+                case DataType.HddTemp:
+                    if (value < Config.AppConfig.Hdd.TempYellowThreshold || value == null)
+                    {
+                        control.Foreground = Brushes.Lime;
+                    }
+                    else if (value < Config.AppConfig.Hdd.TempRedThreshold)
+                    {
+                        control.Foreground = Brushes.Yellow;
+                    }
+                    else
+                    {
+                        control.Foreground = Brushes.Red;
+                    }
+                    control.Content = value != null ? $"{value}°C" : "-";
+                    break;
+                case DataType.HddUsage:
+                    if (value < Config.AppConfig.Hdd.UsageYellowThreshold || value == null)
+                    {
+                        control.Foreground = Brushes.Lime;
+                    }
+                    else if (value < Config.AppConfig.Hdd.UsageRedThreshold)
+                    {
+                        control.Foreground = Brushes.Yellow;
+                    }
+                    else
+                    {
+                        control.Foreground = Brushes.Red;
+                    }
+                    control.Content = value != null ? $"{value:0.00}%" : "-";
                     break;
                 default:
                     break;

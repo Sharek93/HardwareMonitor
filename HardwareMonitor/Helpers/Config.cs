@@ -18,7 +18,8 @@ namespace HardwareMonitor.Helpers
                 {
                     Cpu = new AppConfig.CpuDisplayConfig(),
                     Memory = new AppConfig.MemoryDisplayConfig(),
-                    Gpu = new AppConfig.GpuDisplayConfig()
+                    Gpu = new AppConfig.GpuDisplayConfig(),
+                    Hdd = new AppConfig.HddDisplayConfig()
                 };
                 var configString = File.ReadAllText("AppConfig.json");
                 AppConfig = JsonConvert.DeserializeObject<AppConfig>(configString);

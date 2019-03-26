@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HardwareMonitor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="330" Width="380" Background="{x:Null}" Foreground="Black" AllowsTransparency="True" WindowStyle="None" MaxWidth="380" MaxHeight="330">
+        Title="MainWindow" Height="330" Width="370" Background="{x:Null}" Foreground="Black" AllowsTransparency="True" WindowStyle="None" MaxWidth="370" MaxHeight="330">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="150"/>
@@ -17,9 +17,29 @@
             <ColumnDefinition Width="170"/>
             <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
+
+        <Grid x:Name="ControllButtonsGrid" Grid.ColumnSpan="1" Margin="0" Grid.Column="3">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button x:Name="CloseButton" Content="X" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="20" Height="20" FontFamily="Calibri" FontSize="16" FontWeight="Bold" BorderBrush="Black" Background="#FF474747" Click="CloseButton_Click_1" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+            <Button x:Name="FollowButton" Content="O" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="20" Height="20" FontFamily="Calibri" FontSize="16" FontWeight="Bold" BorderBrush="Black" Background="#FF474747" PreviewMouseLeftButtonDown="FollowButton_PreviewMouseLeftButtonDown" PreviewMouseMove="FollowButton_PreviewMouseMove" PreviewMouseLeftButtonUp="FollowButton_PreviewMouseLeftButtonUp" Padding="0" UseLayoutRounding="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" Grid.Row="1"/>
+        </Grid>
+
         <Button x:Name="StartButton" Content="Start / Stop" Margin="10,5" Click="StartButton_Click" Grid.Row="2" Grid.Column="1" FontFamily="Calibri" FontWeight="Bold" FontSize="13" Background="#FF474747" BorderBrush="Black" Padding="0"/>
-        <Button x:Name="CloseButton" Content="X" HorizontalAlignment="Right" Margin="0,10,5,0" VerticalAlignment="Top" Width="20" Height="20" FontFamily="Calibri" FontSize="16" FontWeight="Bold" BorderBrush="Black" Background="#FF474747" Click="CloseButton_Click_1" Grid.Column="2" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
-        <Button x:Name="FollowButton" Content="O" HorizontalAlignment="Right" Margin="0,40,5,0" VerticalAlignment="Top" Width="20" Height="20" FontFamily="Calibri" FontSize="16" FontWeight="Bold" BorderBrush="Black" Background="#FF474747" PreviewMouseLeftButtonDown="FollowButton_PreviewMouseLeftButtonDown" PreviewMouseMove="FollowButton_PreviewMouseMove" PreviewMouseLeftButtonUp="FollowButton_PreviewMouseLeftButtonUp" Grid.Column="2" Padding="0" UseLayoutRounding="False" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+
+        <Grid x:Name="StatusGrid" Grid.ColumnSpan="1" Margin="0" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Status:" Margin="0" Padding="0,0,10,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Foreground="White"/>
+            <Label Content="Running" Margin="10,0,0,0" Padding="0,0,10,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Foreground="Lime" Grid.Column="1" HorizontalAlignment="Left"/>
+        </Grid>
 
         <Label Content="CPU:" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top" FontFamily="Calibri" FontWeight="Bold" Foreground="White" Width="25" Padding="0" VerticalContentAlignment="Center" Height="25"/>
         <Label Name="CpuName" Content="No data" Margin="30,0,0,0" VerticalAlignment="Top" FontFamily="Calibri" Foreground="White" FontStretch="Condensed" FontWeight="Thin" Padding="0" VerticalContentAlignment="Center" Height="25"/>
@@ -140,28 +160,28 @@
             <Label Content="HDD #1:" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="White" Padding="0,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" HorizontalContentAlignment="Center"/>
             <Label Content="Used:" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="White" Padding="0,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" HorizontalContentAlignment="Center" Grid.Row="1" BorderThickness="0,0,0,1"/>
             <Label Content="Temp:" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="White" Padding="0,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" HorizontalContentAlignment="Center" Grid.Row="1" Grid.Column="2" BorderThickness="0,0,0,1"/>
-            <Label x:Name="Disk1Name" Content="Name: 1" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="White" Padding="2,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" Grid.Column="1" Grid.ColumnSpan="3"/>
+            <Label x:Name="Disk1Name" Content="No drive detected" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="White" Padding="2,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" Grid.Column="1" Grid.ColumnSpan="3" FontStretch="Condensed" FontWeight="Thin"/>
             <Label x:Name="Disk1Load" Content="1%" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="Lime" Padding="0,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" HorizontalContentAlignment="Center" Grid.Row="1" Grid.Column="1" BorderThickness="0,0,0,1"/>
             <Label x:Name="Disk1Temp" Content="1C" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="Lime" Padding="0,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" HorizontalContentAlignment="Center" Grid.Row="1" Grid.Column="3" BorderThickness="0,0,0,1"/>
 
             <Label Content="HDD #2:" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="White" Padding="0,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" HorizontalContentAlignment="Center" Grid.Row="2"/>
             <Label Content="Used:" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="White" Padding="0,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" HorizontalContentAlignment="Center" Grid.Row="3" BorderThickness="0,0,0,1"/>
             <Label Content="Temp:" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="White" Padding="0,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" HorizontalContentAlignment="Center" Grid.Row="3" Grid.Column="2" BorderThickness="0,0,0,1"/>
-            <Label x:Name="Disk2Name" Content="Name: 2" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="White" Padding="2,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"/>
+            <Label x:Name="Disk2Name" Content="No drive detected" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="White" Padding="2,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" FontStretch="Condensed" FontWeight="Thin"/>
             <Label x:Name="Disk2Load" Content="2%" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="Lime" Padding="0,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" HorizontalContentAlignment="Center" Grid.Row="3" Grid.Column="1" BorderThickness="0,0,0,1"/>
             <Label x:Name="Disk2Temp" Content="2C" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="Lime" Padding="0,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" HorizontalContentAlignment="Center" Grid.Row="3" Grid.Column="3" BorderThickness="0,0,0,1"/>
 
             <Label Content="HDD #3:" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="White" Padding="0,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" HorizontalContentAlignment="Center" Grid.Row="4"/>
             <Label Content="Used:" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="White" Padding="0,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" HorizontalContentAlignment="Center" Grid.Row="5" BorderThickness="0,0,0,1"/>
             <Label Content="Temp:" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="White" Padding="0,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" HorizontalContentAlignment="Center" Grid.Row="5" Grid.Column="2" BorderThickness="0,0,0,1"/>
-            <Label x:Name="Disk3Name" Content="Name: 3" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="White" Padding="2,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3"/>
+            <Label x:Name="Disk3Name" Content="No drive detected" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="White" Padding="2,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" FontStretch="Condensed" FontWeight="Thin"/>
             <Label x:Name="Disk3Load" Content="3%" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="Lime" Padding="0,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" HorizontalContentAlignment="Center" Grid.Row="5" Grid.Column="1" BorderThickness="0,0,0,1"/>
             <Label x:Name="Disk3Temp" Content="3C" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="Lime" Padding="0,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" HorizontalContentAlignment="Center" Grid.Row="5" Grid.Column="3" BorderThickness="0,0,0,1"/>
 
             <Label Content="HDD #4:" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="White" Padding="0,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" HorizontalContentAlignment="Center" Grid.Row="6"/>
             <Label Content="Used:" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="White" Padding="0,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" HorizontalContentAlignment="Center" Grid.Row="7" BorderThickness="0,0,0,1"/>
             <Label Content="Temp:" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="White" Padding="0,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" HorizontalContentAlignment="Center" Grid.Row="7" Grid.Column="2" BorderThickness="0,0,0,1"/>
-            <Label x:Name="Disk4Name" Content="Name: 4" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="White" Padding="2,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3"/>
+            <Label x:Name="Disk4Name" Content="No drive detected" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="White" Padding="2,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" FontStretch="Condensed" FontWeight="Thin"/>
             <Label x:Name="Disk4Load" Content="4%" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="Lime" Padding="0,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" HorizontalContentAlignment="Center" Grid.Row="7" Grid.Column="1" BorderThickness="0,0,0,1"/>
             <Label x:Name="Disk4Temp" Content="4C" Margin="0" FontFamily="Calibri" FontSize="11" Foreground="Lime" Padding="0,0,0,0" VerticalContentAlignment="Center" BorderBrush="White" HorizontalContentAlignment="Center" Grid.Row="7" Grid.Column="3" BorderThickness="0,0,0,1"/>
         </Grid>

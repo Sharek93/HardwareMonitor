@@ -12,5 +12,11 @@
 	"Gpu": {
 		"TempYellowThreshold": 75,
 		"TempRedThreshold": 90
+	},
+	"Hdd": {
+		"TempYellowThreshold": 50,
+		"TempRedThreshold": 70,
+		"UsageYellowThreshold": 70,
+		"UsageRedThreshold": 90
 	}
 }
