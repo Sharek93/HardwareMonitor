@@ -1,7 +1,6 @@
 ﻿using HardwareMonitor.Components.Monitors;
 using HardwareMonitor.Models;
 using HardwareMonitor.Models.Monitors;
-using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,18 +10,19 @@ namespace HardwareMonitor.Components
     public class DataManager
     {
         public bool IsRunning { get; private set; } = false;
-        public CpuData CpuData => _cpuMonitor.Data ?? throw new Exception("CPU monitor not initialize");
-        public MemoryData MemoryData => _memoryMonitor.Data ?? throw new Exception("RAM monitor not initialize");
-        public GpuData GpuData => _gpuMonitor.Data ?? throw new Exception("GPU monitor not initialize");
+        public CpuData CpuData => _cpuMonitor.Data ?? null;
+        public MemoryData MemoryData => _memoryMonitor.Data ?? null;
+        public GpuData GpuData => _gpuMonitor.Data ?? null;
         private readonly CpuMonitor _cpuMonitor;
         private readonly MemoryMonitor _memoryMonitor;
         private readonly GpuMonitor _gpuMonitor;
-        private readonly DataManagerConfig _config;
+        private readonly DiskMonitor _diskMonitor;
+        public DataManagerConfig Config { get; }
 
         public DataManager(DataManagerConfig config)
         {
             Debug.WriteLine(config.ToString());
-            _config = config;
+            Config = config;
             ComputerManager.Initialize(config);
             if (config.MonitorCpu)
             {
@@ -38,7 +38,7 @@ namespace HardwareMonitor.Components
             }
             if (config.MonitorDisks)
             {
-
+                _diskMonitor = new DiskMonitor();
             }
         }
 
@@ -58,21 +58,21 @@ namespace HardwareMonitor.Components
             Task.Run(() => {
                 do
                 {
-                    if (_config.MonitorCpu)
+                    if (Config.MonitorCpu)
                     {
                         _cpuMonitor.UpdateInfo();
                     }
-                    if (_config.MonitorGpu)
+                    if (Config.MonitorGpu)
                     {
                         _gpuMonitor.UpdateInfo();
                     }
-                    if (_config.MonitorMemory)
+                    if (Config.MonitorMemory)
                     {
                         _memoryMonitor.UpdateInfo();
                     }
-                    if (_config.MonitorDisks)
+                    if (Config.MonitorDisks)
                     {
-
+                        _diskMonitor.UpdateInfo();
                     }
                     Thread.Sleep(1000);
                 } while (IsRunning);

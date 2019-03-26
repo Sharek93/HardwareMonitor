@@ -18,6 +18,16 @@ namespace HardwareMonitor.Components.Monitors
         {
             var hardware = ComputerManager.Computer.Hardware.FirstOrDefault(e => e.HardwareType == HardwareType.GpuNvidia);
 
+            if (hardware == null)
+            {
+                hardware = ComputerManager.Computer.Hardware.FirstOrDefault(e => e.HardwareType == HardwareType.GpuAti);
+                if (hardware == null)
+                {
+                    return;
+                }
+            }
+
+
             hardware.Update();
             foreach (IHardware subHardware in hardware.SubHardware)
                 subHardware.Update();
@@ -28,24 +38,24 @@ namespace HardwareMonitor.Components.Monitors
             {
                 if (sensor.SensorType == SensorType.Temperature)
                 {
-                    Data.Temperature = sensor.Value ?? 0;
+                    Data.Temperature = sensor.Value;
                 }
                 if (sensor.SensorType == SensorType.Fan)
                 {
-                    Data.FanSpeed = sensor.Value ?? 0;
+                    Data.FanSpeed = sensor.Value;
                 }
                 if (sensor.SensorType == SensorType.Clock)
                 {
                     switch (sensor.Name)
                     {
                         case "GPU Core":
-                            Data.CoreClock = sensor.Value ?? 0;
+                            Data.CoreClock = sensor.Value;
                             break;
                         case "GPU Memory":
-                            Data.MemoryClock = sensor.Value ?? 0;
+                            Data.MemoryClock = sensor.Value;
                             break;
                         case "GPU Shader":
-                            Data.ShaderClock = sensor.Value ?? 0;
+                            Data.ShaderClock = sensor.Value;
                             break;
                         default:
                             break;
@@ -56,16 +66,16 @@ namespace HardwareMonitor.Components.Monitors
                     switch (sensor.Name)
                     {
                         case "GPU Core":
-                            Data.CoreLoad = sensor.Value ?? 0;
+                            Data.CoreLoad = sensor.Value;
                             break;
                         case "GPU Memory Controller":
-                            Data.MemoryControlLoad = sensor.Value ?? 0;
+                            Data.MemoryControlLoad = sensor.Value;
                             break;
                         case "GPU Video Engine":
-                            Data.VideoEngineLoad = sensor.Value ?? 0;
+                            Data.VideoEngineLoad = sensor.Value;
                             break;
                         case "GPU Memory":
-                            Data.MemoryLoad = sensor.Value ?? 0;
+                            Data.MemoryLoad = sensor.Value;
                             break;
                         default:
                             break;
@@ -80,13 +90,13 @@ namespace HardwareMonitor.Components.Monitors
                     switch (sensor.Name)
                     {
                         case "GPU Memory Total":
-                            Data.MemoryTotal = sensor.Value ?? 0;
+                            Data.MemoryTotal = sensor.Value;
                             break;
                         case "GPU Memory Used":
-                            Data.MemoryUsed = sensor.Value ?? 0;
+                            Data.MemoryUsed = sensor.Value;
                             break;
                         case "GPU Memory Free":
-                            Data.MemoryFree = sensor.Value ?? 0;
+                            Data.MemoryFree = sensor.Value;
                             break;
                         default:
                             break;

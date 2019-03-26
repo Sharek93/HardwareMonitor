@@ -1,21 +1,8 @@
 ﻿using HardwareMonitor.Components;
-using HardwareMonitor.Components.Monitors;
 using HardwareMonitor.Helpers;
 using HardwareMonitor.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace HardwareMonitor
 {
@@ -36,7 +23,9 @@ namespace HardwareMonitor
                 MonitorCpu = true,
                 MonitorGpu = true,
                 MonitorMemory = true,
-                MonitorDisks = true
+                MonitorDisks = true,
+                MonitorFans = true,
+                MonitorMotherboard = true,
             };
             _dataManager = new DataManager(config);
             WindowPosition.Initialize(this);

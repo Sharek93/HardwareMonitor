@@ -18,6 +18,11 @@ namespace HardwareMonitor.Components.Monitors
         {
             var hardware = ComputerManager.Computer.Hardware.FirstOrDefault(e => e.HardwareType == HardwareType.RAM);
 
+            if (hardware == null)
+            {
+                return;
+            }
+
             hardware.Update();
             foreach (IHardware subHardware in hardware.SubHardware)
                 subHardware.Update();
@@ -28,15 +33,15 @@ namespace HardwareMonitor.Components.Monitors
             {
                 if (sensor.Name == "Available Memory")
                 {
-                    Data.MemoryAvailable = sensor.Value ?? 0;
+                    Data.MemoryAvailable = sensor.Value;
                 }
                 if (sensor.Name == "Used Memory")
                 {
-                    Data.MemoryUsed = sensor.Value ?? 0;
+                    Data.MemoryUsed = sensor.Value;
                 }
                 if (sensor.Name == "Memory")
                 {
-                    Data.MemoryUsePercent = sensor.Value ?? 0;
+                    Data.MemoryUsePercent = sensor.Value;
                 }
             }
 

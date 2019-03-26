@@ -3,19 +3,19 @@
     public class GpuData
     {
         public string Name { get; set; }
-        public float Temperature { get; set; }
-        public float FanSpeed { get; set; }
-        public float CoreClock { get; set; }
-        public float MemoryClock { get; set; }
-        public float ShaderClock { get; set; }
-        public float CoreLoad { get; set; }
-        public float MemoryControlLoad { get; set; }
-        public float VideoEngineLoad { get; set; }
-        public float FanControll { get; set; }
-        public float MemoryTotal { get; set; }
-        public float MemoryUsed { get; set; }
-        public float MemoryFree { get; set; }
-        public float MemoryLoad { get; set; }
+        public float? Temperature { get; set; }
+        public float? FanSpeed { get; set; }
+        public float? CoreClock { get; set; }
+        public float? MemoryClock { get; set; }
+        public float? ShaderClock { get; set; }
+        public float? CoreLoad { get; set; }
+        public float? MemoryControlLoad { get; set; }
+        public float? VideoEngineLoad { get; set; }
+        public float? FanControll { get; set; }
+        public float? MemoryTotal { get; set; }
+        public float? MemoryUsed { get; set; }
+        public float? MemoryFree { get; set; }
+        public float? MemoryLoad { get; set; }
 
         public override string ToString()
         {

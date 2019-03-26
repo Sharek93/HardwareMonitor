@@ -14,7 +14,9 @@ namespace HardwareMonitor.Components.Monitors
                 CPUEnabled = dataManagerConfig.MonitorCpu,
                 GPUEnabled = dataManagerConfig.MonitorGpu,
                 RAMEnabled = dataManagerConfig.MonitorMemory,
-                HDDEnabled = dataManagerConfig.MonitorDisks
+                HDDEnabled = dataManagerConfig.MonitorDisks,
+                MainboardEnabled = dataManagerConfig.MonitorMotherboard,
+                FanControllerEnabled = dataManagerConfig.MonitorFans
             };
             Computer.Open();
         }

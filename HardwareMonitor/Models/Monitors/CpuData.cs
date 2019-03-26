@@ -8,11 +8,11 @@
 
         public class CpuTemperature
         {
-            public int Core1 { get; set; }
-            public int Core2 { get; set; }
-            public int Core3 { get; set; }
-            public int Core4 { get; set; }
-            public int Total { get; set; }
+            public int? Core1 { get; set; }
+            public int? Core2 { get; set; }
+            public int? Core3 { get; set; }
+            public int? Core4 { get; set; }
+            public int? Total { get; set; }
 
             public override string ToString()
             {
@@ -22,11 +22,11 @@
 
         public class CpuLoad
         {
-            public float Core1 { get; set; }
-            public float Core2 { get; set; }
-            public float Core3 { get; set; }
-            public float Core4 { get; set; }
-            public float Total { get; set; }
+            public float? Core1 { get; set; }
+            public float? Core2 { get; set; }
+            public float? Core3 { get; set; }
+            public float? Core4 { get; set; }
+            public float? Total { get; set; }
 
             public override string ToString()
             {

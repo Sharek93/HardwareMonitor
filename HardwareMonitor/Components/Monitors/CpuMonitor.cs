@@ -22,6 +22,11 @@ namespace HardwareMonitor.Components.Monitors
         {
             var hardware = ComputerManager.Computer.Hardware.FirstOrDefault(e => e.HardwareType == HardwareType.CPU);
 
+            if (hardware == null)
+            {
+                return;
+            }
+
             hardware.Update();
             foreach (IHardware subHardware in hardware.SubHardware)
                 subHardware.Update();
@@ -34,23 +39,23 @@ namespace HardwareMonitor.Components.Monitors
                 {
                     if (sensor.Name.Contains("#1"))
                     {
-                        Data.Load.Core1 = sensor.Value ?? -1;
+                        Data.Load.Core1 = sensor.Value;
                     }
                     if (sensor.Name.Contains("#2"))
                     {
-                        Data.Load.Core2 = sensor.Value ?? -1;
+                        Data.Load.Core2 = sensor.Value;
                     }
                     if (sensor.Name.Contains("#3"))
                     {
-                        Data.Load.Core3 = sensor.Value ?? -1;
+                        Data.Load.Core3 = sensor.Value;
                     }
                     if (sensor.Name.Contains("#4"))
                     {
-                        Data.Load.Core4 = sensor.Value ?? -1;
+                        Data.Load.Core4 = sensor.Value;
                     }
                     if (sensor.Name.Contains("Total"))
                     {
-                        Data.Load.Total = sensor.Value ?? -1;
+                        Data.Load.Total = sensor.Value;
                     }
 
                     //Debug.WriteLine($"{hardware.Name} {sensor.Name} Clock: {sensor.Value}");
@@ -59,23 +64,23 @@ namespace HardwareMonitor.Components.Monitors
                 {
                     if (sensor.Name.Contains("#1"))
                     {
-                        Data.Temperature.Core1 = (int)(sensor.Value ?? -1);
+                        Data.Temperature.Core1 = (int)sensor.Value;
                     }
                     if (sensor.Name.Contains("#2"))
                     {
-                        Data.Temperature.Core2 = (int)(sensor.Value ?? -1);
+                        Data.Temperature.Core2 = (int)sensor.Value;
                     }
                     if (sensor.Name.Contains("#3"))
                     {
-                        Data.Temperature.Core3 = (int)(sensor.Value ?? -1);
+                        Data.Temperature.Core3 = (int)sensor.Value;
                     }
                     if (sensor.Name.Contains("#4"))
                     {
-                        Data.Temperature.Core4 = (int)(sensor.Value ?? -1);
+                        Data.Temperature.Core4 = (int)sensor.Value;
                     }
                     if (sensor.Name.Contains("Package"))
                     {
-                        Data.Temperature.Total = (int)(sensor.Value ?? -1);
+                        Data.Temperature.Total = (int)sensor.Value;
                     }
 
                     //Debug.WriteLine($"{hardware.Name} {sensor.Name} Temperature: {sensor.Value}");
