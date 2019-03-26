@@ -1,6 +1,7 @@
 ﻿using HardwareMonitor.Components;
 using HardwareMonitor.Helpers;
 using HardwareMonitor.Models;
+using HardwareMonitor.Resources;
 using System.Windows;
 using System.Windows.Input;
 
@@ -18,6 +19,10 @@ namespace HardwareMonitor
         {
             InitializeComponent();
             Config.LoadConfig();
+            if (Config.AppConfig.StartTopMost)
+            {
+                AppInfo.TopMost = true;
+            }
             var config = new DataManagerConfig
             {
                 MonitorCpu = true,
@@ -30,6 +35,8 @@ namespace HardwareMonitor
             _dataManager = new DataManager(config);
             WindowPosition.Initialize(this);
             _interfaceManager = new InterfaceManager(this, _dataManager);
+            _interfaceManager.UpdateStatus();
+            _interfaceManager.UpdateTopMostStatus();
         }
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
@@ -70,6 +77,22 @@ namespace HardwareMonitor
         private void FollowButton_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             WindowPosition.StopFollow();
+        }
+
+        private void TopMostButton_Click(object sender, RoutedEventArgs e)
+        {
+            AppInfo.TopMost = !AppInfo.TopMost;
+            _interfaceManager.UpdateTopMostStatus();
+        }
+
+        private void Window_Deactivated(object sender, System.EventArgs e)
+        {
+            if (AppInfo.TopMost)
+            {
+                ((Window)sender).Topmost = true;
+                return;
+            }
+            ((Window)sender).Topmost = false;
         }
     }
 }

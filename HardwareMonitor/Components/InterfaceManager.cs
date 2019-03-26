@@ -1,10 +1,12 @@
 ﻿using HardwareMonitor.Enums;
 using HardwareMonitor.Helpers;
 using HardwareMonitor.Models;
+using HardwareMonitor.Resources;
 using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -25,6 +27,30 @@ namespace HardwareMonitor.Components
             _config = dataManager.Config;
         }
 
+        public void UpdateStatus()
+        {
+            _window.Dispatcher.Invoke(() => {
+                if (AppInfo.IsRunning)
+                {
+                    _window.StatusLabel.Foreground = Brushes.Lime;
+                    _window.StatusLabel.Content = "Running";
+                    return;
+                }
+                _window.StatusLabel.Foreground = Brushes.Red;
+                _window.StatusLabel.Content = "Stopped";
+            });
+        }
+
+        public void UpdateTopMostStatus()
+        {
+            if (AppInfo.TopMost)
+            {
+                _window.TopMostFrame.Background = Brushes.Lime;
+                return;
+            }
+            _window.TopMostFrame.Background = Brushes.Red;
+        }
+
         public void Start()
         {
             if (!IsRunning)
@@ -32,17 +58,20 @@ namespace HardwareMonitor.Components
                 IsRunning = true;
                 Run();
             }
+            UpdateStatus();
         }
 
         public void Stop()
         {
+            ResetInterface(_window);
+            UpdateStatus();
             IsRunning = false;
         }
 
         private void Run()
         {
             Task.Run(() => {
-                while (IsRunning)
+                do
                 {
                     if (_config.MonitorCpu)
                     {
@@ -50,18 +79,18 @@ namespace HardwareMonitor.Components
                     }
                     if (_config.MonitorMemory)
                     {
-                        UpdateMemoryInterface(); 
+                        UpdateMemoryInterface();
                     }
                     if (_config.MonitorGpu)
                     {
-                        UpdateGpuInterFace(); 
+                        UpdateGpuInterFace();
                     }
                     if (_config.MonitorDisks)
                     {
                         UpdateDiskInterface();
                     }
-                    Thread.Sleep(1000);             
-                }
+                    Thread.Sleep(1000);
+                } while (IsRunning);
             });
         }
 
@@ -191,6 +220,51 @@ namespace HardwareMonitor.Components
             catch (Exception e)
             {
                 Debug.WriteLine("Error occured while invoking disk interface. " + e.Message);
+            }
+        }
+
+        private void ResetInterface(DependencyObject dependencyObject)
+        {
+            try
+            {
+                _window.Dispatcher.Invoke(() =>
+                    {
+                        try
+                        {
+                            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(dependencyObject); i++)
+                            {
+                                var child = VisualTreeHelper.GetChild(dependencyObject, i);
+
+                                if (child is Label)
+                                {
+                                    if (((Label)child).Name.Contains("Name"))
+                                    {
+                                        ((Label)child).Content = "No data";
+                                    }
+                                    else if (((Label)child).Name == null || ((Label)child).Name == "")
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        ((Label)child).Content = "-";
+                                    }
+                                }
+                                else
+                                {
+                                    ResetInterface(child);
+                                }
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.WriteLine("Error occured while cleaning interface. " + e.Message);
+                        }
+                    });
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Error occured while invoking interface. " + e.Message);
             }
         }
 

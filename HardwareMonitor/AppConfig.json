@@ -1,4 +1,5 @@
 {
+	"StartTopMost": true,
 	"Cpu": {
 		"TempYellowThreshold": 70,
 		"TempRedThreshold": 80,

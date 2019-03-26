@@ -1,6 +1,7 @@
 ﻿using HardwareMonitor.Components.Monitors;
 using HardwareMonitor.Models;
 using HardwareMonitor.Models.Monitors;
+using HardwareMonitor.Resources;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
@@ -47,11 +48,13 @@ namespace HardwareMonitor.Components
         public void Start()
         {
             IsRunning = true;
+            AppInfo.IsRunning = true;
             Work();
         }
 
         public void Stop()
         {
+            AppInfo.IsRunning = false;
             IsRunning = false;
         }
 

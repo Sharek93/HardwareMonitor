@@ -2,6 +2,7 @@
 {
     public class AppConfig
     {
+        public bool StartTopMost { get; set; }
         public CpuDisplayConfig Cpu { get; set; }
         public MemoryDisplayConfig Memory { get; set; }
         public GpuDisplayConfig Gpu { get; set; }
@@ -10,9 +11,11 @@
         public override string ToString()
         {
             return $"Loaded config:\n" +
+                $"StartTopMost: {StartTopMost}\n" +
                 $"{Cpu.ToString()}\n" +
                 $"{Memory.ToString()}\n" +
-                $"{Gpu.ToString()}";
+                $"{Gpu.ToString()}\n" +
+                $"{Hdd.ToString()}";
         }
 
         public class CpuDisplayConfig

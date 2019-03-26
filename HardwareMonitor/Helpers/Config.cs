@@ -1,4 +1,5 @@
 ﻿using HardwareMonitor.Models;
+using HardwareMonitor.Resources;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
