@@ -41,6 +41,20 @@ namespace HardwareMonitor.Components
             });
         }
 
+        public void SetOpacitySettings(int value)
+        {
+            _window.OpacitySlider.Value = value;
+            UpdateOpacity(value);
+        }
+
+        public void UpdateOpacity(int value)
+        {
+            var opacity = (byte)(value * 255 / 100f);
+            _window.Background = new SolidColorBrush(Color.FromArgb(opacity, 0, 0, 0));
+            Config.AppConfig.Opacity = value;
+            Debug.WriteLine($"Background opacity changed to: {value}% ({opacity})");
+        }
+
         public void UpdateTopMostStatus()
         {
             if (AppInfo.TopMost)

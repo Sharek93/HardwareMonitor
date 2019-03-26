@@ -3,6 +3,7 @@
     public class AppConfig
     {
         public bool StartTopMost { get; set; }
+        public int Opacity { get; set; }
         public CpuDisplayConfig Cpu { get; set; }
         public MemoryDisplayConfig Memory { get; set; }
         public GpuDisplayConfig Gpu { get; set; }
@@ -12,6 +13,7 @@
         {
             return $"Loaded config:\n" +
                 $"StartTopMost: {StartTopMost}\n" +
+                $"Opacity: {Opacity}\n" +
                 $"{Cpu.ToString()}\n" +
                 $"{Memory.ToString()}\n" +
                 $"{Gpu.ToString()}\n" +

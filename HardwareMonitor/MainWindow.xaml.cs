@@ -37,6 +37,7 @@ namespace HardwareMonitor
             _interfaceManager = new InterfaceManager(this, _dataManager);
             _interfaceManager.UpdateStatus();
             _interfaceManager.UpdateTopMostStatus();
+            _interfaceManager.SetOpacitySettings(Config.AppConfig.Opacity);
         }
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
@@ -61,6 +62,7 @@ namespace HardwareMonitor
 
         private void CloseButton_Click_1(object sender, RoutedEventArgs e)
         {
+            Config.SaveConfig();
             Close();
         }
 
@@ -93,6 +95,11 @@ namespace HardwareMonitor
                 return;
             }
             ((Window)sender).Topmost = false;
+        }
+
+        private void OpacitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            _interfaceManager.UpdateOpacity((int)e.NewValue);
         }
     }
 }

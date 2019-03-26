@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HardwareMonitor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="330" Width="370" Background="{x:Null}" Foreground="Black" AllowsTransparency="True" WindowStyle="None" MaxWidth="370" MaxHeight="330" Deactivated="Window_Deactivated">
+        Title="MainWindow" Height="330" Width="370" Background="#7F000000" Foreground="Black" AllowsTransparency="True" WindowStyle="None" MaxWidth="370" MaxHeight="330" Deactivated="Window_Deactivated">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="150"/>
@@ -32,6 +32,7 @@
             <Frame x:Name="TopMostFrame" Content="" Margin="5" Grid.Row="3" Background="Lime" ToolTip="Indicates if monitor window is always on top"/>
         </Grid>
 
+        <Slider x:Name="OpacitySlider" Grid.Column="2" Margin="0" Grid.Row="1" Foreground="#FF474747" BorderBrush="Black" Maximum="100" Orientation="Vertical" HorizontalAlignment="Center" ValueChanged="OpacitySlider_ValueChanged" ToolTip="Controls monitor opacity"/>
         <Button x:Name="StartButton" Content="Start / Stop" Margin="10,5" Click="StartButton_Click" Grid.Row="2" Grid.Column="1" FontFamily="Calibri" FontWeight="Bold" FontSize="13" Background="#FF474747" BorderBrush="Black" Padding="0" ToolTip="Starts and stopps hardware monitor"/>
 
         <Grid x:Name="StatusGrid" Grid.ColumnSpan="1" Margin="0" Grid.Row="2">

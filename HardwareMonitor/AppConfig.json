@@ -1,5 +1,6 @@
 {
 	"StartTopMost": true,
+	"Opacity": 10,
 	"Cpu": {
 		"TempYellowThreshold": 70,
 		"TempRedThreshold": 80,
