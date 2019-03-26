@@ -20,6 +20,7 @@ namespace HardwareMonitor.Components
         private readonly MemoryMonitor _memoryMonitor;
         private readonly GpuMonitor _gpuMonitor;
         private readonly DiskMonitor _diskMonitor;
+        private readonly MotherboardMonitor _motherboardMonitor;
         public DataManagerConfig Config { get; }
 
         public DataManager(DataManagerConfig config)
@@ -42,6 +43,10 @@ namespace HardwareMonitor.Components
             if (config.MonitorDisks)
             {
                 _diskMonitor = new DiskMonitor();
+            }
+            if (Config.MonitorMotherboard)
+            {
+                _motherboardMonitor = new MotherboardMonitor();
             }
         }
 
@@ -78,6 +83,10 @@ namespace HardwareMonitor.Components
                     if (Config.MonitorDisks)
                     {
                         _diskMonitor.UpdateInfo();
+                    }
+                    if (Config.MonitorMotherboard)
+                    {
+                        _motherboardMonitor.UpdateInfo();
                     }
                     Thread.Sleep(1000);
                 } while (IsRunning);

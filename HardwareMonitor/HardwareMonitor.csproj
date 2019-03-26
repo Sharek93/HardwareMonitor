@@ -65,6 +65,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Components\Monitors\MotherboardMonitor.cs" />
+    <Compile Include="Models\Monitors\MotherboardData.cs" />
     <Compile Include="Resources\AppInfo.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
