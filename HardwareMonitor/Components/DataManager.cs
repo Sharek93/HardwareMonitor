@@ -16,6 +16,7 @@ namespace HardwareMonitor.Components
         public MemoryData MemoryData => _memoryMonitor.Data ?? null;
         public GpuData GpuData => _gpuMonitor.Data ?? null;
         public List<DiskData> DiskData => _diskMonitor.Data ?? null;
+        public MotherboardData MotherboardData => _motherboardMonitor.Data ?? null;
         private readonly CpuMonitor _cpuMonitor;
         private readonly MemoryMonitor _memoryMonitor;
         private readonly GpuMonitor _gpuMonitor;

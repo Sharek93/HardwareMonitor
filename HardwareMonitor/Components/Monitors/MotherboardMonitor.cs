@@ -40,7 +40,7 @@ namespace HardwareMonitor.Components.Monitors
                 {
                     Data.Data.Add(new MotherboardData.InnerData
                     {
-                        Id = ++i,
+                        Id = i++,
                         Key = $"{subHardware.Name} {sensor.Name}",
                         Value = sensor.Value.ToString()
                     });

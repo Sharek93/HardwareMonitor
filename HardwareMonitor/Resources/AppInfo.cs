@@ -4,5 +4,6 @@
     {
         public static bool TopMost { get; set; }
         public static bool IsRunning { get; set; }
+        public static bool MotherboardWindowVisible { get; set; }
     }
 }

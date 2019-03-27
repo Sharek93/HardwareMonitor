@@ -2,6 +2,7 @@
 using HardwareMonitor.Helpers;
 using HardwareMonitor.Models;
 using HardwareMonitor.Resources;
+using HardwareMonitor.Windows;
 using System;
 using System.Diagnostics;
 using System.Threading;
@@ -15,16 +16,33 @@ namespace HardwareMonitor.Components
     public class InterfaceManager
     {
         private readonly MainWindow _window;
+        private readonly MotherboardData _motherboardWindow;
         private readonly DataManager _dataManager;
         public bool IsRunning { get; private set; } = false;
         private readonly DataManagerConfig _config;
 
-        public InterfaceManager(MainWindow window, DataManager dataManager)
+        public InterfaceManager(MainWindow window, MotherboardData motherboardWindow, DataManager dataManager)
         {
             _window = window;
+            _motherboardWindow = motherboardWindow;
             _dataManager = dataManager;
             IsRunning = false;
             _config = dataManager.Config;
+        }
+
+        public void ShowMotherboardWindow()
+        {
+            if (_motherboardWindow.Visibility == Visibility.Visible)
+            {
+                _motherboardWindow.Visibility = Visibility.Hidden;
+                AppInfo.MotherboardWindowVisible = false;
+            }
+            else if (_motherboardWindow.Visibility == Visibility.Hidden)
+            {
+                _motherboardWindow.Visibility = Visibility.Visible;
+                AppInfo.MotherboardWindowVisible = true;
+                WindowPosition.UpdateMotherboardWindowPosition();
+            }
         }
 
         public void UpdateStatus()
@@ -51,6 +69,7 @@ namespace HardwareMonitor.Components
         {
             var opacity = (byte)(value * 255 / 100f);
             _window.Background = new SolidColorBrush(Color.FromArgb(opacity, 0, 0, 0));
+            _motherboardWindow.Background = new SolidColorBrush(Color.FromArgb(opacity, 0, 0, 0));
             Config.AppConfig.Opacity = value;
             Debug.WriteLine($"Background opacity changed to: {value}% ({opacity})");
         }
@@ -78,6 +97,7 @@ namespace HardwareMonitor.Components
         public void Stop()
         {
             ResetInterface(_window);
+            ResetInterface(_motherboardWindow);
             UpdateStatus();
             IsRunning = false;
         }
@@ -102,6 +122,10 @@ namespace HardwareMonitor.Components
                     if (_config.MonitorDisks)
                     {
                         UpdateDiskInterface();
+                    }
+                    if (_config.MonitorMotherboard)
+                    {
+                        UpdateMotherboardInterface();
                     }
                     Thread.Sleep(1000);
                 } while (IsRunning);
@@ -234,6 +258,44 @@ namespace HardwareMonitor.Components
             catch (Exception e)
             {
                 Debug.WriteLine("Error occured while invoking disk interface. " + e.Message);
+            }
+        }
+
+        private void UpdateMotherboardInterface()
+        {
+            var data = _dataManager.MotherboardData;
+
+            try
+            {
+                _motherboardWindow.Dispatcher.Invoke(() =>
+                {
+                    try
+                    {
+                        _motherboardWindow.PrepareInterface(data.Data.Count);
+                        _motherboardWindow.MotherboardName.Content = data.Name;
+
+                        foreach (Models.Monitors.MotherboardData.InnerData d in data.Data)
+                        {
+                            var targetGrid = (Grid)VisualTreeHelper.GetChild(_motherboardWindow.MainGrid, 1);
+                            if (targetGrid == null)
+                            {
+                                return;
+                            }
+                            var keyLabel = (Label)LogicalTreeHelper.FindLogicalNode(targetGrid, "KeyLabelName_" + d.Id);
+                            keyLabel.Content = d.Key;
+                            var valueLabel = (Label)LogicalTreeHelper.FindLogicalNode(targetGrid, "ValueLabelName_" + d.Id);
+                            valueLabel.Content = d.Value;
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine("Error occured while updating MotherboardData interface: " + e.Message);
+                    }
+                });
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Error occured while invoking motherboard interface. " + e.Message);
             }
         }
 

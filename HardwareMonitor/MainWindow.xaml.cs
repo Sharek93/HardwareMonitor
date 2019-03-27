@@ -2,6 +2,7 @@
 using HardwareMonitor.Helpers;
 using HardwareMonitor.Models;
 using HardwareMonitor.Resources;
+using HardwareMonitor.Windows;
 using System.Windows;
 using System.Windows.Input;
 
@@ -14,11 +15,13 @@ namespace HardwareMonitor
     {
         private DataManager _dataManager;
         private InterfaceManager _interfaceManager;
+        private MotherboardData _motherboardDataWindow;
 
         public MainWindow()
         {
             InitializeComponent();
             Config.LoadConfig();
+            _motherboardDataWindow = new MotherboardData();            
             if (Config.AppConfig.StartTopMost)
             {
                 AppInfo.TopMost = true;
@@ -33,12 +36,14 @@ namespace HardwareMonitor
                 MonitorMotherboard = true,
             };
             _dataManager = new DataManager(config);
-            WindowPosition.Initialize(this);
-            _interfaceManager = new InterfaceManager(this, _dataManager);
+            _motherboardDataWindow.Show();
+            _motherboardDataWindow.Visibility = Visibility.Hidden;
+            WindowPosition.Initialize(this, _motherboardDataWindow);
+            _interfaceManager = new InterfaceManager(this, _motherboardDataWindow, _dataManager);
             _interfaceManager.UpdateStatus();
             _interfaceManager.UpdateTopMostStatus();
-            _interfaceManager.SetOpacitySettings(Config.AppConfig.Opacity);
-        }
+            _interfaceManager.SetOpacitySettings(Config.AppConfig.Opacity);            
+    }
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
@@ -63,6 +68,7 @@ namespace HardwareMonitor
         private void CloseButton_Click_1(object sender, RoutedEventArgs e)
         {
             Config.SaveConfig();
+            _motherboardDataWindow.Close();
             Close();
         }
 
@@ -100,6 +106,11 @@ namespace HardwareMonitor
         private void OpacitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             _interfaceManager.UpdateOpacity((int)e.NewValue);
+        }
+
+        private void ShowMotherboardDataButton_Click(object sender, RoutedEventArgs e)
+        {
+            _interfaceManager.ShowMotherboardWindow();
         }
     }
 }
